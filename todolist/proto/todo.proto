@@ -1,0 +1,84 @@
+
+
+syntax = "proto3";
+
+package todo;
+
+option go_package = "/todolist/proto";
+
+// To-Do Service Definition
+service TodoService {
+    rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse);
+    rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
+    rpc ListTasks(ListTasksRequest) returns (ListTasksResponse);
+    rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse);
+    rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse);
+    rpc GetAISuggestions(AISuggestionsRequest) returns (AISuggestionsResponse);
+}
+
+// Task Message
+message Task {
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+    string status = 4; // e.g., "Pending", "Completed"
+    string due_date = 5; // YYYY-MM-DD format
+}
+
+// Create Task
+message CreateTaskRequest {
+    string title = 1;
+    string description = 2;
+    string due_date = 3;
+}
+
+message CreateTaskResponse {
+    Task task = 1;
+}
+
+// Get Task
+message GetTaskRequest {
+    int32 id = 1;
+}
+
+message GetTaskResponse {
+    Task task = 1;
+}
+
+// List Tasks
+message ListTasksRequest {}
+
+message ListTasksResponse {
+    repeated Task tasks = 1;
+}
+
+// Update Task
+message UpdateTaskRequest {
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+    string status = 4;
+    string due_date = 5;
+}
+
+message UpdateTaskResponse {
+    Task task = 1;
+}
+
+// Delete Task
+message DeleteTaskRequest {
+    int32 id = 1;
+}
+
+message DeleteTaskResponse {
+    string message = 1;
+}
+
+// AI Suggestions (using Generative AI)
+message AISuggestionsRequest {
+    repeated Task tasks = 1;
+}
+
+message AISuggestionsResponse {
+    string suggestion = 1;
+}

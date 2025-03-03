@@ -1,0 +1,18 @@
+version: "2"
+
+sql:
+  - engine: "postgresql"
+    schema: "./db/migration/"
+    queries: "./db/query/"
+    gen:
+      go:
+        package: "db"
+        out: "./db/sqlc"
+        sql_package: "database/sql"  # ✅ Fixed closing quote
+        emit_json_tags: true         # ✅ JSON tags for APIs
+
+overrides:
+    go: null
+plugins: []
+rules: []
+options: {}
